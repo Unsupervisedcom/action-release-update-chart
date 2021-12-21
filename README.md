@@ -40,20 +40,30 @@ Greet someone
 ### Example usage
 
 ```yaml
-on: [push]
-
+name: Release
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+    paths:
+      - 'eventstreamapis/**'
+      - 'server/**'
+      - 'buf.gen.yaml'
+      - 'buf.work.yaml'
+      - Dockerfile
+      - 'go.mod'
+      - 'go.sum'
 jobs:
-  hello_world_job:
+  release:
+    if: github.event.pull_request.merged == true
+    name: Release and update helm chart
     runs-on: ubuntu-latest
-    name: A job to say hello
     steps:
-      - uses: actions/checkout@v2
-      - id: foo
-        uses: actions/hello-world-composite-action@v1
+      - uses: Unsupervisedcom/action-release-update-chart@v1
         with:
-          who-to-greet: "Mona the Octocat"
-      - run: echo random-number ${{ steps.foo.outputs.random-number }}
-        shell: bash
+          token: ${{ secrets.DEPLOYER_CI_TOKEN }}
 ```
 
 <!-- end examples -->

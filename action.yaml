@@ -1,21 +1,69 @@
-name: 'Hello World' # taken from https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
-description: 'Greet someone'
+name: 'Release and Update Chart'
+description: 'This action is intended to run on PR merge. It performs a semantic-release, then creates a PR into a helm chart repository with an updated appVersion, using the same PR title and body as the PR that triggered the workflow'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  token:
+    description: 'Github token to use, this should be a PAT so that it can trigger workflows on the destination helm repository'
     required: true
-    default: 'World'
-outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-id }}
+  release-config:
+    description: 'semantic-release release configuration to use'
+    required: false
+    default: '@unsupervised/release-config-general'
+  helm-repo:
+    description: 'The helm chart git repo to update'
+    required: false
+    default: '${{ github.repository_owner }}/chart-${{ github.event.repository.name }}'
+  helm-repo-branch:
+    description: 'The helm chart git repo to branch from and PR into'
+    required: false
+    default: alpha
+  path-to-chart:
+    description: 'The path to the helm chart in the helm git repo'
+    required: false
+    default: chart
+  labels:
+    description: 'Labels to apply to the PR. Should be a comma separated string'
+    required: false
+    default: automerge
+  delete-branch:
+    description: 'Delete PR branch after merge'
+    required: false
+    default: true
+  branch-prefix:
+    description: 'The prefix for the name of the feature branch'
+    required: false
+    default: 'automated-code-release-'
 runs:
   using: "composite"
   steps:
-    - run: echo Hello ${{ inputs.who-to-greet }}.
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        token: ${{ inputs.token }}
+    - name: Release
+      id: release
+      uses: cycjimmy/semantic-release-action@v2
+      with:
+        extends: ${{ inputs.release-config }}
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+    - if: steps.release.outputs.new_release_published == 'true'
+      name: Checkout helm chart
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ inputs.helm-repo }}
+        token: ${{ inputs.token }}
+        ref: ${{ inputs.helm-repo-branch }}
+    - if: steps.release.outputs.new_release_published == 'true'
+      name: Update appVersion
       shell: bash
-    - id: random-number-generator
-      run: echo "::set-output name=random-id::$(echo $RANDOM)"
-      shell: bash
-    - run: ${{ github.action_path }}/goodbye.sh
-      shell: bash
+      run: |
+        sed -i "0,/appVersion:.*/s//appVersion: \"${{ steps.release.outputs.new_release_version }}\"/g" ${{ inputs.path-to-chart }}/Chart.yaml
+    - if: steps.release.outputs.new_release_published == 'true'
+      uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{ inputs.token }}
+        title: ${{ github.event.pull_request.title }}
+        commit-message: '${{ github.event.pull_request.title }}\n\n${{ github.event.pull_request.body }}\n\nTriggered by ${{ github.event.pull_request._links.self.href }}'
+        branch: '${{ inputs.branch-prefix }}${{ steps.release.outputs.new_release_version }}'
+        delete-branch: ${{ inputs.delete-branch }}
+        labels: ${{ inputs.labels }}
