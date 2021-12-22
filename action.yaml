@@ -63,7 +63,8 @@ runs:
       with:
         token: ${{ inputs.token }}
         title: ${{ github.event.pull_request.title }}
-        commit-message: '${{ github.event.pull_request.title }}\n\n${{ github.event.pull_request.body }}\n\nTriggered by ${{ github.event.pull_request._links.self.href }}'
+        body: 'Automated changes triggered by [pull request](${{ github.event.pull_request._links.self.href }})\n\n${{ github.event.pull_request.body }}'
+        commit-message: ${{ github.event.pull_request.title }}
         branch: '${{ inputs.branch-prefix }}${{ steps.release.outputs.new_release_version }}'
         delete-branch: ${{ inputs.delete-branch }}
         labels: ${{ inputs.labels }}
