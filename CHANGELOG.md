@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/Unsupervisedcom/action-release-update-chart/compare/v1.0.1...v1.0.2) (2021-12-22)
+
+
+### Bug Fixes
+
+* Use pr html ref, not api ref, and use br tag which works in mark… ([#3](https://github.com/Unsupervisedcom/action-release-update-chart/issues/3)) ([ba89166](https://github.com/Unsupervisedcom/action-release-update-chart/commit/ba89166ab9cbc9535ea3bbd48b9b4731138e3e96))
+
 ## [1.0.1](https://github.com/Unsupervisedcom/action-release-update-chart/compare/v1.0.0...v1.0.1) (2021-12-22)
 
 
