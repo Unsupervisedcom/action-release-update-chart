@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/Unsupervisedcom/action-release-update-chart/compare/v1.0.2...v1.0.3) (2021-12-22)
+
+
+### Bug Fixes
+
+* Start body with original PR body, end with link to PR ([#4](https://github.com/Unsupervisedcom/action-release-update-chart/issues/4)) ([fe5a3c0](https://github.com/Unsupervisedcom/action-release-update-chart/commit/fe5a3c0e38856b3de253cb4508c2fab21f7c0b18))
+
 ## [1.0.2](https://github.com/Unsupervisedcom/action-release-update-chart/compare/v1.0.1...v1.0.2) (2021-12-22)
 
 
