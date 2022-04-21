@@ -46,21 +46,28 @@ This action is intended to run on PR merge. It performs a semantic-release, then
     # The prefix for the name of the feature branch
     # Default: automated-code-release-
     branch-prefix: ""
+
+    # If true, this action will disable the `include administrators` setting in branch
+    # protection for this branch, and re-enable it after release. Re-enabling is run
+    # using always()
+    # Default: false
+    toggle-admins: ""
 ```
 
 <!-- end usage -->
    <!-- start inputs -->
 
-| **Input**              | **Description**                                                                                               |                                **Default**                                 | **Required** |
-| :--------------------- | :------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------: | :----------: |
-| **`token`**            | Github token to use, this should be a PAT so that it can trigger workflows on the destination helm repository |                                                                            |   **true**   |
-| **`release-config`**   | semantic-release release configuration to use                                                                 |                   `@unsupervised/release-config-general`                   |  **false**   |
-| **`helm-repo`**        | The helm chart git repo to update                                                                             | `${{ github.repository_owner }}/chart-${{ github.event.repository.name }}` |  **false**   |
-| **`helm-repo-branch`** | The helm chart git repo to branch from and PR into                                                            |                                  `alpha`                                   |  **false**   |
-| **`path-to-chart`**    | The path to the helm chart in the helm git repo                                                               |                                  `chart`                                   |  **false**   |
-| **`labels`**           | Labels to apply to the PR. Should be a comma separated string                                                 |                                `automerge`                                 |  **false**   |
-| **`delete-branch`**    | Delete PR branch after merge                                                                                  |                                   `true`                                   |  **false**   |
-| **`branch-prefix`**    | The prefix for the name of the feature branch                                                                 |                         `automated-code-release-`                          |  **false**   |
+| **Input**              | **Description**                                                                                                                                                                |                                **Default**                                 | **Required** |
+| :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------: | :----------: |
+| **`token`**            | Github token to use, this should be a PAT so that it can trigger workflows on the destination helm repository                                                                  |                                                                            |   **true**   |
+| **`release-config`**   | semantic-release release configuration to use                                                                                                                                  |                   `@unsupervised/release-config-general`                   |  **false**   |
+| **`helm-repo`**        | The helm chart git repo to update                                                                                                                                              | `${{ github.repository_owner }}/chart-${{ github.event.repository.name }}` |  **false**   |
+| **`helm-repo-branch`** | The helm chart git repo to branch from and PR into                                                                                                                             |                                  `alpha`                                   |  **false**   |
+| **`path-to-chart`**    | The path to the helm chart in the helm git repo                                                                                                                                |                                  `chart`                                   |  **false**   |
+| **`labels`**           | Labels to apply to the PR. Should be a comma separated string                                                                                                                  |                                `automerge`                                 |  **false**   |
+| **`delete-branch`**    | Delete PR branch after merge                                                                                                                                                   |                                   `true`                                   |  **false**   |
+| **`branch-prefix`**    | The prefix for the name of the feature branch                                                                                                                                  |                         `automated-code-release-`                          |  **false**   |
+| **`toggle-admins`**    | If true, this action will disable the `include administrators` setting in branch protection for this branch, and re-enable it after release. Re-enabling is run using always() |                                                                            |  **false**   |
 
 <!-- end inputs -->
    <!-- start outputs -->

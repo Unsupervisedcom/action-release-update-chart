@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Unsupervisedcom/action-release-update-chart/compare/v1.0.3...v1.1.0) (2022-04-21)
+
+
+### Features
+
+* add toggle-admin flag ([#5](https://github.com/Unsupervisedcom/action-release-update-chart/issues/5)) ([6ee2751](https://github.com/Unsupervisedcom/action-release-update-chart/commit/6ee2751b566bea8e572c0c8d1c0e8f25cedc789d))
+
 ## [1.0.3](https://github.com/Unsupervisedcom/action-release-update-chart/compare/v1.0.2...v1.0.3) (2021-12-22)
 
 
