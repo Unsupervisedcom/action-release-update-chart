@@ -18,3 +18,12 @@ jobs:
           validateSingleCommit: true
         env:
           GITHUB_TOKEN: ${{ github.token }}
+  validate-yaml:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Validate YAML file
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          file_or_dir: ./action.yaml
+          config_data: "{extends: default, rules: {line-length: disable}}"
