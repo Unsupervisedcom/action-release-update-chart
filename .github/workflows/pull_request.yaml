@@ -23,6 +23,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Validate YAML file
+        run: yamllint action.yaml
         with:
           config_data: "{extends: default, rules: {line-length: disable}}"
-        run: yamllint action.yaml
