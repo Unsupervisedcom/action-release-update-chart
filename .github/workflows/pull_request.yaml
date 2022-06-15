@@ -23,6 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Validate YAML file
+        uses: ibiqlik/action-yamllint@v3
         with:
           file_or_dir: actions.yaml
           config_data: "{extends: default, rules: {line-length: disable}}"
