@@ -12,6 +12,18 @@ inputs:
     description: 'The helm chart git repo to update'
     required: false
     default: '${{ github.repository_owner }}/chart-${{ github.event.repository.name }}'
+  sentry-auth-token:
+    description: 'Sentry auth token to facilitate sentry releases'
+    required: false
+    default: false
+  sentry-org-slug:
+    description: 'Sentry org name to facilitate sentry releases'
+    required: false
+    default: false
+  sentry-project-name:
+    description: 'Sentry project to update with release info'
+    required: false
+    default: false
   helm-repo-branch:
     description: 'The helm chart git repo to branch from and PR into'
     required: false
@@ -77,6 +89,15 @@ runs:
         branch: '${{ inputs.branch-prefix }}${{ steps.release.outputs.new_release_version }}'
         delete-branch: ${{ inputs.delete-branch }}
         labels: ${{ inputs.labels }}
+    - if: ${{ (steps.release.outputs.new_release_published == 'true') && (inputs.sentry-auth-token != 'false') }}
+        name: sentry release
+        uses: getsentry/action-release@v1.1.6
+          env:
+            SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth-token }}
+            SENTRY_ORG: ${{ inputs.sentry-org-slug }}
+            SENTRY_PROJECT: ${{ inputs.sentry-project }}
+            with:
+              version: ${{ steps.release.outputs.new_release_version }}
     - uses: Unsupervisedcom/action-branch-protection-bot@v1
       if: inputs.toggle-admins == 'true' && always()  # Force to always run this step to ensure "include administrators" is always turned back on
       with:
