@@ -18,3 +18,9 @@ jobs:
           validateSingleCommit: true
         env:
           GITHUB_TOKEN: ${{ github.token }}
+  validate-yaml:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Validate YAML file
+        run: yamllint action.yaml
