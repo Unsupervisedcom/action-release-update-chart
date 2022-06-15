@@ -1,3 +1,11 @@
+## [1.1.1](https://github.com/Unsupervisedcom/action-release-update-chart/compare/v1.1.0...v1.1.1) (2022-06-15)
+
+
+### Bug Fixes
+
+* add sentry release ([#6](https://github.com/Unsupervisedcom/action-release-update-chart/issues/6)) ([4b2f0a0](https://github.com/Unsupervisedcom/action-release-update-chart/commit/4b2f0a040f44087c05d4b4230a13b6303b2dc753))
+* yaml for release ([#7](https://github.com/Unsupervisedcom/action-release-update-chart/issues/7)) ([c15fe69](https://github.com/Unsupervisedcom/action-release-update-chart/commit/c15fe69aec129e1e32fb383ee044308bfe8c4190))
+
 # [1.1.0](https://github.com/Unsupervisedcom/action-release-update-chart/compare/v1.0.3...v1.1.0) (2022-04-21)
 
 
