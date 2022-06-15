@@ -95,7 +95,7 @@ runs:
           env:
             SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth-token }}
             SENTRY_ORG: ${{ inputs.sentry-org-slug }}
-            SENTRY_PROJECT: ${{ inputs.sentry-project }}
+            SENTRY_PROJECT: ${{ inputs.sentry-project-name }}
             with:
               version: ${{ steps.release.outputs.new_release_version }}
     - uses: Unsupervisedcom/action-branch-protection-bot@v1
