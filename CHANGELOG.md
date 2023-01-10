@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Unsupervisedcom/action-release-update-chart/compare/v1.1.1...v1.2.0) (2023-01-10)
+
+
+### Features
+
+* update semver action version ([#8](https://github.com/Unsupervisedcom/action-release-update-chart/issues/8)) ([2d3abef](https://github.com/Unsupervisedcom/action-release-update-chart/commit/2d3abef38b339d655579ade1f5d5bbc123031242))
+
 ## [1.1.1](https://github.com/Unsupervisedcom/action-release-update-chart/compare/v1.1.0...v1.1.1) (2022-06-15)
 
 
